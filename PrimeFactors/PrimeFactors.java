@@ -6,9 +6,12 @@ public class PrimeFactors {
   }
 
   public static void FactorFinder(Scanner console) {
-    System.out.print("Enter integer greater than 1 (0 to terminate): ");
+    System.out.print("\nEnter integer greater than 1 (0 to terminate): ");
     long n = console.nextLong();
-    System.out.print("List of prime factors:");
+    if (n==0) {
+      System.out.println();
+    } else {
+      System.out.print("\nList of prime factors:");
       while (n % 2 == 0) {
         n /= 2;
         System.out.print("2, ");
@@ -20,7 +23,9 @@ public class PrimeFactors {
         }
       }
       if (n > 2) {
-        System.out.print(n);
+        System.out.print(n + " ");
       }
+      FactorFinder(new Scanner(System.in));
+    }
     } 
 }
