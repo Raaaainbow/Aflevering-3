@@ -17,15 +17,16 @@ public class PrimeFactors {
       System.out.print("List of prime factors:");
 
       // Devides n by 2 while the remainder is 0
+      // I think the bug with 9201111169755555649 comes from here, instead of printing "2, " it should print the fraction
       while (n % 2 == 0) {
         n /= 2;
-        System.out.print("2 ");
+        System.out.print("2, ");
       }
 
       // check if remainder is 0 for greater than 2 to sqaure root of number
-      for (int i = 3; i <= Math.sqrt(n); i += 2) {
+      for (int i = 3; i <= Math.sqrt(n); i ++) {
         while (n % i == 0) {
-          System.out.print(", " + i );
+          System.out.print(i + ", ");
           n /= i;
         }
       }
@@ -38,4 +39,4 @@ public class PrimeFactors {
     }
     FactorFinder(new Scanner(System.in));
     } 
-}
+} 
