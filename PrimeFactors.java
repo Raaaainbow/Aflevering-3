@@ -14,7 +14,7 @@ public class PrimeFactors {
       // Returns nothing, so the program ends
       return;
     } else {
-      System.out.print("List of prime factors:");
+      System.out.print("List of prime factors: ");
 
       // Devides n by 2 while the remainder is 0
       // I think the bug with 9201111169755555649 comes from here, instead of printing "2, " it should print the fraction
