@@ -39,7 +39,7 @@ public class PrimeFactors {
 
       // fjerner komma til sidst hvis der opstår fencepost problem
       if (output.charAt(output.length()-1) == ',') {
-        output = output.substring(0, output.length()-2);
+        output = output.substring(0, output.length()-1);
       }
       
       // Printer resultatet
