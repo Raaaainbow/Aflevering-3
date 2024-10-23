@@ -25,7 +25,7 @@ public class PrimeFactors {
       }
 
       // check if remainder is 0 for greater than 2 to sqaure root of number
-      for (long i = 3; i <= Math.sqrt(n); i ++) {
+      for (long i = 3; i <= Math.sqrt(n); i += 2) {
         while (n % i == 0) {
           output += " " + i + ",";
           n /= i;
