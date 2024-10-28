@@ -1,4 +1,4 @@
-package RandomWalk;
+package RaceTrack;
 /*************************************************************************
  *  Compilation:  javac StdDraw.java
  *  Execution:    java StdDraw
