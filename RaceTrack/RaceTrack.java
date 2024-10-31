@@ -132,13 +132,17 @@ class Map {
 }
 
 class Player {
-
+    int[] position = {0,0};
+    int[] acceleration = {0,0};
+    public Player() {
+        
+    }
 }
 
 public class RaceTrack {
     public static void main(String[] args) throws FileNotFoundException {
         Map firstMap = new Map(5);
-        firstMap.loadMap("RaceTrack\\secondMap.dat");
+        firstMap.loadMap("RaceTrack\\firstMap.dat");
         System.out.println(firstMap);
         firstMap.buildMap();
     }
