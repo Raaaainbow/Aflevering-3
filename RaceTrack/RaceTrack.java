@@ -99,12 +99,8 @@ class Map {
     }
     
     public void drawChunk(int x, int y) {
-        int xScale = this.data[0].length*this.scale;
-        int yScale = this.data.length*this.scale;
-        int largest = xScale >= yScale ? xScale : yScale;
-        double scalar = (double)this.scale/largest/this.scale;
         StdDraw.setPenColor(StdDraw.LIGHT_GRAY);
-        StdDraw.filledSquare(.5/largest*(1+x*2), .5/largest*(1+y*2), 0.5*scalar);
+        StdDraw.filledSquare(x+.5, y-.5, 0.5);
     }
     
     public void outlineArea(int x0,int y0, int x1, int y1) {
@@ -125,12 +121,10 @@ class Map {
         for (int i = 0 ; i < this.data[0].length*this.scale ; i++) {
             for (int j = 0; j < this.data.length*this.scale ; j++) {
                 if (this.data[(int)j/this.scale][(int)i/this.scale] == 1) {
-                    drawChunk(i, j);
+                    drawChunk(i, yScale-j);
                 }
             }
         }
-        outlineArea(0, 0, 1,1);
-        
         drawGrid(xScale, yScale);
     }
 
@@ -144,9 +138,8 @@ class Player {
 public class RaceTrack {
     public static void main(String[] args) throws FileNotFoundException {
         Map firstMap = new Map(5);
-        firstMap.loadMap("RaceTrack\\firstMap.dat");
+        firstMap.loadMap("RaceTrack\\secondMap.dat");
         System.out.println(firstMap);
         firstMap.buildMap();
-        
     }
 }
