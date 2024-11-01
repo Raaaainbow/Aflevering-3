@@ -32,7 +32,7 @@ class Map {
         int rows = 0;
         int cols = 0;
         
-        // Her bestemmer den dimensionerne, da vi bruger Array datastrukturen
+        // Her bestemmer den dimensionerne, da vi bruger Array datastrukturen og ikke ArrayList
         try (Scanner scanner = new Scanner(inputFile)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -65,11 +65,11 @@ class Map {
         for (int i = 0; i < this.data.length; i++) {
             for (int j = 0; j < this.data[i].length; j++) {
                 result += this.data[i][j];
-                if (j < this.data[i].length - 1) { // Add space if not the last cell in the row
+                if (j < this.data[i].length - 1) { // Tilføj mellemrum hvis det ikke er sidste (fencepost problem løst)
                     result += " ";
                 }
             }
-            if (i < this.data.length - 1) { // Add newline if not the last row
+            if (i < this.data.length - 1) { // Det samme her!
                 result += "\n";
             }
         }
@@ -77,8 +77,7 @@ class Map {
     }
 
     public void levelScale(int scale) {
-        StdDraw.setXscale(-.5, scale+.5);
-        StdDraw.setYscale(-.5, scale+.5);
+        StdDraw.setScale(-.5, scale+.5);
     }
 
     public void drawThickLine(int x0,int y0, int x1, int y1, double r) {
@@ -120,7 +119,7 @@ class Map {
         System.out.println("yScale:" + yScale);
         for (int i = 0 ; i < this.data[0].length*this.scale ; i++) {
             for (int j = 0; j < this.data.length*this.scale ; j++) {
-                if (this.data[(int)j/this.scale][(int)i/this.scale] == 1) {
+                if (this.data[j/this.scale][i/this.scale] == 1) { 
                     drawChunk(i, yScale-j);
                 }
             }
@@ -141,8 +140,8 @@ class Player {
 
 public class RaceTrack {
     public static void main(String[] args) throws FileNotFoundException {
-        Map firstMap = new Map(5);
-        firstMap.loadMap("RaceTrack\\firstMap.dat");
+        Map firstMap = new Map(3);
+        firstMap.loadMap("RaceTrack\\secondMap.dat");
         System.out.println(firstMap);
         firstMap.buildMap();
     }
