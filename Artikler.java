@@ -66,18 +66,15 @@ class Artikel {
     this.referenceliste = referenceliste; 
 
     }
-    public String[] getReferencer () {
+    public String[]getReferencer () {
         return this.referenceliste; 
     
         }
 
     public boolean compareReferences(Artikel andenArtikel) {
-        String[] andreReferencer = andenArtikel.getReferencer();
-        for (int i = 0 ; i < andreReferencer.length ; i++) {
-            for (int j = i ; j < referenceliste.length ; j++) {
-                if (andreReferencer[i] == referenceliste[j]) {
-                    return true;
-                }
+        for (int i = 0 ; i < referenceliste.length ; i++) {
+            if (andenArtikel.titelArtikel == referenceliste[i]) {
+                return true;
             }
         }
         return false; 
@@ -112,5 +109,6 @@ class ArtikelTest {
         System.out.println(Tidsskrift2);
         System.out.println(a);
         System.out.println(b);
+        System.out.println(a.compareReferences(b) ? "Artikel A refererer til Artikel B" : "Artikel A refererer ikke til Artikel B");
     }
 }
