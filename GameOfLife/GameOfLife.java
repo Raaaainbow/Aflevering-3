@@ -1,56 +1,95 @@
 package GameOfLife;
-import java.util.Scanner;
+
+import java.util.Random;
 
 public class GameOfLife {
-    public static void main(String[] args) {
+    private int[][] gameOfLifeBoard;
 
-        // for now you can tweak the value of x and y to alter the size of the board
-        int boardWidth = 0;
-        int boardHeight = 0;
-        int[][] gameOfLifeBoard = new int[boardWidth][boardHeight];
-        nextStage(gameOfLifeBoard ,boardWidth, boardHeight);
+    private int[][] liveNeighbours(int[][] gameOfLifeBoard) {
+
+        // Creates an array that keeps track of live neighbours
+        int n = gameOfLifeBoard.length;
+        int[][] neighbourArray = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int aliveNeighbourCounter = 0;
+
+                for (int k = i-1; k <= i+1; k++) {
+                    for (int l = j-1; l <= j+1; l++) {
+                        if (k >= 0 && l >= 0 && k < n && l < n) {
+                            aliveNeighbourCounter += gameOfLifeBoard[k][l];
+                        }
+                    }
+                }
+                // avoids counting itself as alive
+                if (gameOfLifeBoard[i][j] == 1) {
+                    aliveNeighbourCounter--;
+                }
+                neighbourArray[i][j] = aliveNeighbourCounter;   
+            }
+        }
+
+        return neighbourArray;
     }
 
-    public static int[] nextStage (int[][] gameOfLifeBoard,int boardWidth,  int boardHeight) {
-        aliveNeighbourCounter(boardWidth, boardHeight);
-        // check every integer in array and applies GOL rules to it
+    public int[][] generateGameOfLifeBoard (int n) {
 
-        // remember to add array and logic for life and death 
+        // Generates n x n board
+        this.gameOfLifeBoard = new int[n][n];
+        return this.gameOfLifeBoard;
+    }
 
-        for (int i = 0; i < boardWidth; i++) {
-            for (int j = 0; i < boardHeight; j++) {
-                if (gameOfLifeBoard[i][j] == 1 && numberOfAliveNeighbour[i][j] > 2) {
-                    gameOfLifeBoard[i][j] = 0 ;
+    public int[][] initialGameOfLifeBoard (int[][] gameOfLifeBoard) {
+
+        // Copies initial state of the game
+        int[][] initialBoard = gameOfLifeBoard; 
+        return initialBoard;
+    }
+
+    public void nextState (int[][] gameOfLifeBoard, int n) {
+
+        // creates next state of the board
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                // Rules for game of life simplfied
+                if (((gameOfLifeBoard[i][j] == 1) && ((liveNeighbours(gameOfLifeBoard)[i][j] < 2) || (liveNeighbours(gameOfLifeBoard)[i][j] > 3)))) {
+                    gameOfLifeBoard[i][j] = 0;
+                } else if ((gameOfLifeBoard[i][j] == 0) && (liveNeighbours(gameOfLifeBoard)[i][j] == 3)) {
+                    gameOfLifeBoard[i][j] = 1;
                 }
             }
         }
     }
 
-    public static int[][] aliveNeighbourCounter (int boardWidth, int boardHeight) {
+    public void changeValue (int i, int j, int newValue) {
 
-        // Creates new array that keeps track of how many alive neighbours each cell has
-        int numberOfAliveNeighbour[][] = new int[boardWidth][boardHeight];
+        // Change value for a specific cell in the game board array
+        gameOfLifeBoard[i][j] = newValue;
+    }
 
-        for (int i = 0; i < boardWidth; i++) {
-            for (int j = 0; i < boardHeight; j++) {
-                int
+    public void randomBoard () {
+        
+        // Code borrowed from Random Walk in Assignment 2
+        Random rand = new Random();
+        
+        for (int i = 0; i < gameOfLifeBoard[0].length ; i++) {
+            for (int j = 0; j < gameOfLifeBoard.length; j++) {
+                int randomNum = rand.nextInt(2);
+                gameOfLifeBoard[i][j] = randomNum;
             }
         }
-        return numberOfAliveNeighbour[][];
+    }
+
+    public int[][] getBoard () {
+
+        // Gets Game of Life Board
+        return gameOfLifeBoard;
+    }
+
+    public boolean cellIsAlive (int i, int j) {
+        if (gameOfLifeBoard[i][j] == 1) {
+            return true;
+        }
+            return false;
     }
 }
-
-// Pseudo code
-// aliveNeighbourCounter
-//  for each spot in gameOfLifeBoard array
-//      create new array (maybe create another dimension to existing array??)
-//      count "1"s  from boardWidth-1 boardHeight+1 to boardWidth+1 to boardHeight-1 
-//
-// nextStage
-//  for each spot in gameOfLifeBoard array check same spot in aliveNeighbourCounter
-//      if 1 || aliveNeighbourCounter < 2
-//          swap 1 with 0 (cell dies)
-//      else if 1 ||aliveNeighbourCounter > 3
-//          swap 1 with 0 (cell dies)
-//      else if 0 || aliveNeighbourCounter = 3
-//          swap 0 with 1 (cell comes to life)
