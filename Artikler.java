@@ -66,7 +66,7 @@ class Artikel {
     this.referenceliste = referenceliste; 
 
     }
-    public String[] setReferencer () {
+    public String[] getReferencer () {
         return this.referenceliste; 
     
         }
