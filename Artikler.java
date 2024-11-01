@@ -66,6 +66,24 @@ class Artikel {
     this.referenceliste = referenceliste; 
 
     }
+    public String[] setReferencer () {
+        return this.referenceliste; 
+    
+        }
+
+    public boolean compareReferences(Artikel andenArtikel) {
+        String[] andreReferencer = andenArtikel.getReferencer();
+        for (int i = 0 ; i < andreReferencer.length ; i++) {
+            for (int j = i ; j < referenceliste.length ; j++) {
+                if (andreReferencer[i] == referenceliste[j]) {
+                    return true;
+                }
+            }
+        }
+        return false; 
+    
+        }
+
     public String toString() {
         String temp = ""; // for loop til forfatterne i artiklen 
         for (int i = 0; i < forfattere.length; i++) {
