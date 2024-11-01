@@ -45,10 +45,10 @@ public String toString() {
 }
 }
 class Artikel {
-    private String [] forfattere; 
+    private String[] forfattere; 
     private String titelArtikel; 
     private Tidsskrift tidsskrift; 
-    private String [] referenceliste; 
+    private String[] referenceliste; 
 
     public Artikel (String titelArtikel, String [] forfattere, Tidsskrift tidsskrift, String [] referenceliste) { // hvis man vil sætte referencelist til start
     this.forfattere  = forfattere; 
@@ -66,6 +66,23 @@ class Artikel {
     this.referenceliste = referenceliste; 
 
     }
+    public String[] getReferencer () {
+        return this.referenceliste; 
+        }
+
+    public boolean compareReferences(Artikel andenArtikel) {
+        String[] andreReferencer = andenArtikel.getReferencer();
+        for (int i = 0 ; i < andreReferencer.length ; i++) {
+            for (int j = i ; j < referenceliste.length ; j++) {
+                if (andreReferencer[i] == referenceliste[j]) {
+                    return true;
+                }
+            }
+        }
+        return false; 
+    
+        }
+    
     public String toString() {
         String temp = "";
         for (int i = 0; i < forfattere.length; i++) {
@@ -94,6 +111,7 @@ class ArtikelTest {
         System.out.println(Tidsskrift2);
         System.out.println(a);
         System.out.println(b);
+        //System.out.println(a.compareReferences(b) ? "A & B deler en reference": "A & B deler ikke en reference");
         
     }
 }
