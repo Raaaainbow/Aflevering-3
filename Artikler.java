@@ -36,19 +36,19 @@ class Tidsskrift {
         this.forlag = forlag; 
     }
    
-    public String getTitel() {
+    public String getTitel() { // så vi kan få titlen i to String
         return titel; 
     }
 
 public String toString() {
-    return titel + ", fra " + forlag + ", " + (issn == "" ? "ISSN-nummeret kendes ikke" : issn);
+    return titel + ", fra " + forlag + ", " + (issn == "" ? "ISSN-nummeret kendes ikke" : issn); //Hvis issn-nummer ikke angives skriver vi at det ikke kendes
 }
 }
 class Artikel {
-    private String[] forfattere; 
+    private String [] forfattere; 
     private String titelArtikel; 
     private Tidsskrift tidsskrift; 
-    private String[] referenceliste; 
+    private String [] referenceliste; 
 
     public Artikel (String titelArtikel, String [] forfattere, Tidsskrift tidsskrift, String [] referenceliste) { // hvis man vil sætte referencelist til start
     this.forfattere  = forfattere; 
@@ -66,32 +66,15 @@ class Artikel {
     this.referenceliste = referenceliste; 
 
     }
-    public String[] getReferencer () {
-        return this.referenceliste; 
-        }
-
-    public boolean compareReferences(Artikel andenArtikel) {
-        String[] andreReferencer = andenArtikel.getReferencer();
-        for (int i = 0 ; i < andreReferencer.length ; i++) {
-            for (int j = i ; j < referenceliste.length ; j++) {
-                if (andreReferencer[i] == referenceliste[j]) {
-                    return true;
-                }
-            }
-        }
-        return false; 
-    
-        }
-    
     public String toString() {
-        String temp = "";
+        String temp = ""; // for loop til forfatterne i artiklen 
         for (int i = 0; i < forfattere.length; i++) {
             temp += forfattere[i]; 
             if (i < forfattere.length-1) {
                 temp += " & ";
             }
         }
-        temp += ": \"" + titelArtikel +"\" " + tidsskrift.getTitel();
+        temp += ": \"" + titelArtikel +"\" " + tidsskrift.getTitel(); // efter alle forfatterne kommer ":" og bagefter tidsskrift
         return temp;
     }
 }
@@ -111,7 +94,5 @@ class ArtikelTest {
         System.out.println(Tidsskrift2);
         System.out.println(a);
         System.out.println(b);
-        //System.out.println(a.compareReferences(b) ? "A & B deler en reference": "A & B deler ikke en reference");
-        
     }
 }
