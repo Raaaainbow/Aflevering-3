@@ -8,19 +8,14 @@ public class GameOfLifeMain {
     public static void main(String[] args) throws FileNotFoundException{
         
         GameOfLife game = new GameOfLife(); 
-        importInitialState(game);
+        // importInitialState(game);
+        randomBoardGenerator(game);
     }
-
-    public static void Graphics (int i, int j) {
-
-        // Draws point (i,j)
-        StdDraw.point(i, j);
-    }
-
     
     public static void importInitialState (GameOfLife game) throws FileNotFoundException{
         
         // Reads file and makes it the intial state of the GOL board
+        int[][] gameBoard = game.getBoard();
         File initialStateFile = new File("GameOfLife/acorn.gol");
         Scanner input = new Scanner(initialStateFile);
         if (initialStateFile.exists()) {
@@ -30,18 +25,22 @@ public class GameOfLifeMain {
                 boardwidth++;
             }
             
+            // creates the variable n used for stdDrawSetup
+            int n = boardwidth;
+            setupStdDraw(n);
+
             // Creates array based on size of file
             game.generateGameOfLifeBoard(boardwidth);
             
             //reads each line in file and adds to array
-            for (int i=0; i<boardwidth; i++) {
-                for (int j=0; j<boardwidth; j++) {
+            for (int i = 0; i < gameBoard.length; i++) {
+                for (int j = 0; j < gameBoard.length; j++) {
                     if (input.equals(1)) {
                         game.changeValue(i, j, 1);
                     }
                 }
             }
-            animateNextState(game, game.getBoard(), boardwidth);
+            animateNextState(game, gameBoard, boardwidth);
         } else {
             System.out.println("The file you specified wasn't found, so a random board was generated instead");
             randomBoardGenerator(game);
@@ -59,17 +58,27 @@ public class GameOfLifeMain {
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
                 if (game.cellIsAlive(i, j)) {
-                    Graphics(i, j);
+                    StdDraw.point(i,j);
                 }
             }
         }
         animateNextState(game, gameBoard, n);
     }
     
-    public static void animateNextState (GameOfLife game, int[][] gameBoard, int n) {
+    public static void animateNextState (GameOfLife game, int[][] gameBoard, int n) { // Consider rewriting as recursive to avoid a tripple nested for loop
 
-        // Usese the next state
+        // Animates the game board
         for (;;) {
+            for (int i = 0 ; i < gameBoard.length; i++) {
+                for (int j = 0; j < gameBoard.length; j++) {
+
+                    if (game.cellIsAlive(i, j))  {
+                        
+                        // Draws point (i,j)
+                        StdDraw.point(i, j);
+                    }
+                }
+            }
             game.nextState(gameBoard,n);
             StdDraw.show(50);
             StdDraw.clear();
@@ -84,6 +93,6 @@ public class GameOfLifeMain {
         StdDraw.setCanvasSize(1000,1000);
         StdDraw.setYscale(0,n);
         StdDraw.setXscale(0,n);
-        StdDraw.setPenRadius(2/n);
+        StdDraw.setPenRadius(1.0/n);
     }
 }
