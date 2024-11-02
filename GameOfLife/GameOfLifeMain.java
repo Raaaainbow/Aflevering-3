@@ -16,7 +16,7 @@ public class GameOfLifeMain {
         // Initialises variables for board dimensions
         int boardHeight = 0; 
         int boardWidth = 0; 
-        setupStdDraw(boardWidth);
+        
 
         // Creats file object and opens the file
         File initialStateFile = new File("GameOfLife\\Maps\\toad.gol");
@@ -54,7 +54,7 @@ public class GameOfLifeMain {
                 }
             }
         }
-        
+        setupStdDraw(boardWidth);
         System.out.println(boardWidth);
         // Closing the scanner since it's no longer needed
         input.close();
