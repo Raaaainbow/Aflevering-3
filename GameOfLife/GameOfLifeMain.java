@@ -18,7 +18,7 @@ public class GameOfLifeMain {
         int boardWidth = 0; 
         
         // Creats file object and opens the file
-        File initialStateFile = new File("GameOfLife\\Maps\\pentadecathlon.gol");
+        File initialStateFile = new File("GameOfLife\\Maps\\test.gol");
         Scanner input = new Scanner(initialStateFile);
         
         // Determines array dimensions
@@ -52,7 +52,6 @@ public class GameOfLifeMain {
             }
         }
         
-        System.out.println(boardWidth);
         // Closing the scanner since it's no longer needed
         input.close();
         animateNextState(game, gameBoard, boardWidth);
@@ -101,8 +100,8 @@ public class GameOfLifeMain {
 
         // Sets prefered values for scale and penradius        
         StdDraw.setCanvasSize(1000,1000);
-        StdDraw.setYscale(-0.5,n-0.5);
-        StdDraw.setXscale(-0.5,n-0.5);
+        StdDraw.setYscale(n-0.5,-0.5);
+        StdDraw.setXscale(n-0.5,-0.5);
         StdDraw.setPenRadius(2.0/n);
     }
 }
