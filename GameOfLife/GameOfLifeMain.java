@@ -100,8 +100,8 @@ public class GameOfLifeMain {
 
         // Sets prefered values for scale and penradius        
         StdDraw.setCanvasSize(1000,1000);
-        StdDraw.setYscale(n-0.5,-0.5);
-        StdDraw.setXscale(n-0.5,-0.5);
+        StdDraw.setYscale(-0.5,n-0.5);
+        StdDraw.setXscale(-0.5,n-0.5);
         StdDraw.setPenRadius(2.0/n);
     }
 }
