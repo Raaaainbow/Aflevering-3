@@ -7,49 +7,58 @@ public class GameOfLifeMain {
     public static void main(String[] args) throws FileNotFoundException{
         
         GameOfLife game = new GameOfLife(); 
-        // importInitialState(game);
-        randomBoardGenerator(game);
+        importInitialState(game);
+        // randomBoardGenerator(game);
     }
     
     public static void importInitialState (GameOfLife game) throws FileNotFoundException{
         
-        // Reads file and makes it the intial state of the GOL board
-        int[][] gameBoard = game.getBoard();
-        File initialStateFile = new File("GameOfLife/acorn.gol");
+        // Initialises variables for board dimensions
+        int boardHeight = 0; 
+        int boardWidth = 0; 
+        setupStdDraw(boardWidth);
+
+        // Creats file object and opens the file
+        File initialStateFile = new File("GameOfLife\\Maps\\toad.gol");
         Scanner input = new Scanner(initialStateFile);
-        if (initialStateFile.exists()) {
-            int boardHeight = 0;
-            int boardWidth = 0;
-            while (input.hasNextLine()) {
-                boardHeight++;
+        
+        // Determines array dimensions
+        while (input.hasNextLine()) {
+            String line = input.nextLine();
+            boardHeight++;
+            if (boardWidth == 0) {
+                boardWidth = line.split(" ").length;
             }
+        }
 
-            while (input.hasNextInt()) {
-                input.nextInt();
-                boardWidth++;
-            }
-            
-            // creates the variable n used for stdDrawSetup
-            int n = boardWidth;
-            setupStdDraw(n);
+        input.close();
+        input = new Scanner(initialStateFile); // Resets Scanner
 
-            // Creates array based on size of file
-            game.generateGameOfLifeBoard(boardWidth, boardHeight);
-            
-            //reads each line in file and adds to array
-            for (int i = 0; i < gameBoard.length; i++) {
-                for (int j = 0; j < gameBoard.length; j++) {
-                    if (input.equals(1)) {
-                        game.changeValue(i, j, 1);
+        // Creates array with the correct dimensions
+        game.generateGameOfLifeBoard(boardHeight, boardWidth);
+        int[][] gameBoard = game.getBoard();
+
+        // Draws the array
+        for (int i = 0; i < boardHeight; i++) {
+            for (int j = 0; j < boardWidth; j++) {
+                if (input.hasNextInt()) {
+                    int ijValue = input.nextInt();
+                    game.changeValue(i, j, ijValue);
+                    System.out.println("Setting cell (" + i + ", " + j + ") to " + ijValue); // Debug statement
+
+                    // Draws alive cells
+                    if (game.cellIsAlive(i, j)) {
+                        System.out.println("Drawing point at (" + j + ", " + i + ")"); // Debug statement
+                        StdDraw.point(i, j);
                     }
                 }
             }
-            animateNextState(game, gameBoard, boardHeight);
-        } else {
-            System.out.println("The file you specified wasn't found, so a random board was generated instead");
-            randomBoardGenerator(game);
         }
+        
+        System.out.println(boardWidth);
+        // Closing the scanner since it's no longer needed
         input.close();
+        animateNextState(game, gameBoard, boardWidth);
     }
     
     public static void randomBoardGenerator (GameOfLife game) {
