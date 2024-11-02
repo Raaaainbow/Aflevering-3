@@ -24,7 +24,7 @@ public class Artikler {
             private Forlag forlag; 
             private String issn;
         
-            public Tidsskrift (String titel, Forlag forlag, String issn) { // Tidsskrift med titel som parameter 
+            public Tidsskrift (String titel, Forlag forlag, String issn) { 
                     this.titel = titel; 
                     this.issn = issn; 
                     this.forlag = forlag; 
@@ -71,7 +71,7 @@ public class Artikler {
             
                 }
         
-            public boolean compareReferences(Artikel andenArtikel) {
+            public boolean compareReferences(Artikel andenArtikel) { // for loop til artikel referencer 
                 for (int i = 0 ; i < referenceliste.length ; i++) {
                     if (andenArtikel.titelArtikel == referenceliste[i]) {
                         return true;
@@ -82,18 +82,17 @@ public class Artikler {
                 }
         
             public String toString() {
-                String temp = ""; // for loop til forfatterne i artiklen 
-                for (int i = 0; i < forfattere.length; i++) {
+                String temp = ""; 
+                for (int i = 0; i < forfattere.length; i++) { // for loop til forfatterne i artiklen
                     temp += forfattere[i]; 
                     if (i < forfattere.length-1) {
                         temp += " & ";
                     }
                 }
-                temp += ": \"" + titelArtikel +"\" " + tidsskrift.getTitel(); // efter alle forfatterne kommer ":" og bagefter tidsskrift
+                temp += ": \"" + titelArtikel +"\" " + tidsskrift.getTitel(); // efter alle forfatterne kommer ":", titel og bagefter tidsskrift
                 return temp;
             }
         }
-        
         
 class ArtikelTest {
     public void main(String[] args) {
