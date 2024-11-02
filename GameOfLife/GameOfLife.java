@@ -32,10 +32,10 @@ public class GameOfLife {
         return neighbourArray;
     }
 
-    public int[][] generateGameOfLifeBoard (int n) {
+    public int[][] generateGameOfLifeBoard (int x, int y) {
 
         // Generates n x n board
-        this.gameOfLifeBoard = new int[n][n];
+        this.gameOfLifeBoard = new int[x][y];
         return this.gameOfLifeBoard;
     }
 
