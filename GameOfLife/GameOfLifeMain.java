@@ -17,9 +17,8 @@ public class GameOfLifeMain {
         int boardHeight = 0; 
         int boardWidth = 0; 
         
-
         // Creats file object and opens the file
-        File initialStateFile = new File("GameOfLife\\Maps\\toad.gol");
+        File initialStateFile = new File("GameOfLife\\Maps\\pentadecathlon.gol");
         Scanner input = new Scanner(initialStateFile);
         
         // Determines array dimensions
@@ -31,30 +30,28 @@ public class GameOfLifeMain {
             }
         }
 
+        // setups up StdDraw after boardWidth is correct value
+        setupStdDraw(boardWidth);
+        
         input.close();
         input = new Scanner(initialStateFile); // Resets Scanner
-
+        
         // Creates array with the correct dimensions
         game.generateGameOfLifeBoard(boardHeight, boardWidth);
         int[][] gameBoard = game.getBoard();
-
+        
         // Draws the array
         for (int i = 0; i < boardHeight; i++) {
             for (int j = 0; j < boardWidth; j++) {
                 if (input.hasNextInt()) {
                     int ijValue = input.nextInt();
                     game.changeValue(i, j, ijValue);
-                    System.out.println("Setting cell (" + i + ", " + j + ") to " + ijValue); // Debug statement
-
-                    // Draws alive cells
-                    if (game.cellIsAlive(i, j)) {
-                        System.out.println("Drawing point at (" + j + ", " + i + ")"); // Debug statement
-                        StdDraw.point(i, j);
-                    }
+                    
+                    drawAliveCell(i, j, game);
                 }
             }
         }
-        setupStdDraw(boardWidth);
+        
         System.out.println(boardWidth);
         // Closing the scanner since it's no longer needed
         input.close();
@@ -71,9 +68,7 @@ public class GameOfLifeMain {
         gameBoard = game.getBoard();
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
-                if (game.cellIsAlive(i, j)) {
-                    StdDraw.point(i,j);
-                }
+                drawAliveCell(i, j, game);
             }
         }
         animateNextState(game, gameBoard, n);
@@ -85,28 +80,29 @@ public class GameOfLifeMain {
         for (;;) {
             for (int i = 0 ; i < gameBoard.length; i++) {
                 for (int j = 0; j < gameBoard.length; j++) {
-
-                    if (game.cellIsAlive(i, j))  {
-                        
-                        // Draws point (i,j)
-                        StdDraw.point(i, j);
-                    }
+                    drawAliveCell(i, j, game);
                 }
             }
             game.nextState(gameBoard,n);
-            StdDraw.show(50);
+            StdDraw.show(200);
             StdDraw.clear();
         }
         
             
     }
 
+    public static void drawAliveCell (int i, int j, GameOfLife game) {
+        if (game.cellIsAlive(i, j)) {
+            StdDraw.point(i,j);
+        }
+    }
+
     public static void setupStdDraw (int n) {
 
         // Sets prefered values for scale and penradius        
         StdDraw.setCanvasSize(1000,1000);
-        StdDraw.setYscale(0,n);
-        StdDraw.setXscale(0,n);
-        StdDraw.setPenRadius(1.0/n);
+        StdDraw.setYscale(-0.5,n-0.5);
+        StdDraw.setXscale(-0.5,n-0.5);
+        StdDraw.setPenRadius(2.0/n);
     }
 }
