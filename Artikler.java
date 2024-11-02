@@ -36,7 +36,7 @@ public class Artikler {
                 this.forlag = forlag; 
             }
            
-            public String getTitel() { // så vi kan få titlen i to String
+            public String getTitel() { // så vi kan få titlen i to String i Artikel-klassen
                 return titel; 
             }
         
