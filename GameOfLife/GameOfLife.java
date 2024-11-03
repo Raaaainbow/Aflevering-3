@@ -48,13 +48,14 @@ public class GameOfLife {
 
     public void nextState (int[][] gameOfLifeBoard, int n) {
 
+        int[][] liveNeighboursCount = liveNeighbours(gameOfLifeBoard);
         // creates next state of the board
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 // Rules for game of life simplfied
-                if (((gameOfLifeBoard[i][j] == 1) && ((liveNeighbours(gameOfLifeBoard)[i][j] < 2) || (liveNeighbours(gameOfLifeBoard)[i][j] > 3)))) {
+                if (((gameOfLifeBoard[i][j] == 1) && ((liveNeighboursCount[i][j] < 2) || (liveNeighboursCount[i][j] > 3)))) {
                     gameOfLifeBoard[i][j] = 0;
-                } else if ((gameOfLifeBoard[i][j] == 0) && (liveNeighbours(gameOfLifeBoard)[i][j] == 3)) {
+                } else if ((gameOfLifeBoard[i][j] == 0) && (liveNeighboursCount[i][j] == 3)) {
                     gameOfLifeBoard[i][j] = 1;
                 }
             }
