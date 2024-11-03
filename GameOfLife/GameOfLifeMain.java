@@ -18,7 +18,7 @@ public class GameOfLifeMain {
         int boardWidth = 0; 
         
         // Creats file object and opens the file
-        File initialStateFile = new File("GameOfLife/Maps/acorn.gol");
+        File initialStateFile = new File("GameOfLife/Maps/acorn.gol"); // Edit the path between " " to change map
         Scanner input = new Scanner(initialStateFile);
         
         // Determines array dimensions
