@@ -18,7 +18,7 @@ public class GameOfLifeMain {
         int boardWidth = 0; 
         
         // Creats file object and opens the file
-        File initialStateFile = new File("GameOfLife\\Maps\\pentadecathlon.gol");
+        File initialStateFile = new File("GameOfLife/Maps/acorn.gol");
         Scanner input = new Scanner(initialStateFile);
         
         // Determines array dimensions
@@ -47,12 +47,11 @@ public class GameOfLifeMain {
                     int ijValue = input.nextInt();
                     game.changeValue(i, j, ijValue);
                     
-                    drawAliveCell(i, j, game);
+                    drawAliveCell(j, i, game);
                 }
             }
         }
         
-        System.out.println(boardWidth);
         // Closing the scanner since it's no longer needed
         input.close();
         animateNextState(game, gameBoard, boardWidth);
@@ -68,7 +67,7 @@ public class GameOfLifeMain {
         gameBoard = game.getBoard();
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard.length; j++) {
-                drawAliveCell(i, j, game);
+                drawAliveCell(j, i, game);
             }
         }
         animateNextState(game, gameBoard, n);
@@ -80,11 +79,11 @@ public class GameOfLifeMain {
         for (;;) {
             for (int i = 0 ; i < gameBoard.length; i++) {
                 for (int j = 0; j < gameBoard.length; j++) {
-                    drawAliveCell(i, j, game);
+                    drawAliveCell(j, i, game);
                 }
             }
             game.nextState(gameBoard,n);
-            StdDraw.show(200);
+            StdDraw.show(1000);
             StdDraw.clear();
         }
         
@@ -93,7 +92,7 @@ public class GameOfLifeMain {
 
     public static void drawAliveCell (int i, int j, GameOfLife game) {
         if (game.cellIsAlive(i, j)) {
-            StdDraw.point(i,j);
+            StdDraw.point(j,i);
         }
     }
 
@@ -101,7 +100,7 @@ public class GameOfLifeMain {
 
         // Sets prefered values for scale and penradius        
         StdDraw.setCanvasSize(1000,1000);
-        StdDraw.setYscale(-0.5,n-0.5);
+        StdDraw.setYscale(n-0.5,-0.5);
         StdDraw.setXscale(-0.5,n-0.5);
         StdDraw.setPenRadius(2.0/n);
     }
