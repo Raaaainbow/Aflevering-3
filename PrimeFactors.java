@@ -33,7 +33,7 @@ public class PrimeFactors {
       }
 
       // prints numbers that weren't caught in previous step
-      if (n >= 2) {
+      if (n > 2) {
         output += " " + n;
       }
 
